@@ -1,10 +1,19 @@
 const mongoose = require("mongoose");
+const config = require("config");
+
+const dbgr = require("debug")("development:mongoose");
 mongoose
-  .connect("mongodb://127.0.0.1:27017/shortecomerce")
+  .connect(`${config.get("MONGODB_URI")}/shortecomerce`)
   .then(function () {
-    console.log("mongodb connected");
+    dbgr("mongodb connected");
   })
   .catch(function (err) {
     console.log(err);
   });
 module.exports = mongoose.connection;
+
+// in ternmal write set DEBUG=development:*
+
+//then in terminal set NODE_ENV=deveopment
+// and if u want to proudction
+// then in terminal set NODE_ENV=production
